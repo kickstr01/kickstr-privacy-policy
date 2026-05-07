@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delete Account – Kickstr</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #ff4d4d;
+      --red-soft: rgba(255,77,77,0.1);
+      --red-border: rgba(255,77,77,0.2);
+      --green: #00e07b;
+      --dark: #0b0f0d;
+      --card: #111714;
+      --border: #1e2b23;
+      --text: #c8d9cf;
+      --muted: #5a7366;
+      --white: #f0f7f3;
+    }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(255,77,77,0.04) 0%, transparent 50%),
+        radial-gradient(circle at 85% 80%, rgba(0,224,123,0.03) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 640px;
+      width: 100%;
+      padding: 60px 24px 100px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--green);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+
+    .warning-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--red-soft);
+      border: 1px solid var(--red-border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--red);
+      margin-bottom: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    h1 span { color: var(--red); }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Warning box */
+    .warning-box {
+      background: var(--red-soft);
+      border: 1px solid var(--red-border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+
+    .warning-box h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--red);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .warning-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .warning-box ul li {
+      font-size: 14px;
+      color: var(--text);
+      padding: 5px 0 5px 18px;
+      position: relative;
+    }
+
+    .warning-box ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+    }
+
+    /* Steps */
+    .steps-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(0,224,123,0.1);
+      border: 1px solid rgba(0,224,123,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Email button */
+    .email-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      margin-top: 32px;
+      padding: 16px 24px;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      letter-spacing: -0.3px;
+    }
+
+    .email-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .note {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .note a {
+      color: var(--green);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,224,123,0.3);
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Timeline note */
+    .timeline {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-top: 28px;
+    }
+
+    .timeline h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .timeline p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 40px 16px 80px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <a class="logo" href="./index.html">
+    <div class="logo-icon">⚽</div>
+    <span class="logo-text">Kickstr</span>
+  </a>
+
+  <div class="warning-badge">⚠ Irreversible Action</div>
+
+  <h1>Delete Your <span>Account</span></h1>
+  <p class="subtitle">Request permanent deletion of your Kickstr account and all associated data.</p>
+
+  <!-- Warning -->
+  <div class="warning-box">
+    <h3>⚠ Before you proceed</h3>
+    <ul>
+      <li>Your account and profile will be permanently deleted</li>
+      <li>All your tournament registrations will be removed</li>
+      <li>Your name, email, and phone number will be erased from our system</li>
+      <li>This action <strong>cannot be undone</strong></li>
+    </ul>
+  </div>
+
+  <!-- Steps -->
+  <p class="steps-title">How to request deletion</p>
+
+  <div class="step">
+    <div class="step-num">01</div>
+    <div class="step-content">
+      <h4>Send a deletion request email</h4>
+      <p>Use the button below to send us an email from the address linked to your Kickstr account.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">02</div>
+    <div class="step-content">
+      <h4>Include your account details</h4>
+      <p>In your email, include your registered <strong>name</strong> and <strong>email address</strong> so we can locate your account.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">03</div>
+    <div class="step-content">
+      <h4>We process your request</h4>
+      <p>We will verify your identity and permanently delete your account and all associated data within <strong>7 business days</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Email Button -->
+  <a class="email-btn" href="mailto:your@email.com?subject=Account%20Deletion%20Request%20-%20Kickstr&body=Hello%2C%0A%0AI%20would%20like%20to%20request%20the%20permanent%20deletion%20of%20my%20Kickstr%20account.%0A%0ARegistered%20Name%3A%20%0ARegistered%20Email%3A%20%0A%0APlease%20delete%20all%20my%20data%20associated%20with%20this%20account.%0A%0AThank%20you.">
+    ✉ Send Deletion Request Email
+  </a>
+
+  <p class="note">
+    Or email us directly at <a href="mailto:your@email.com">your@email.com</a>
+  </p>
+
+  <div class="timeline">
+    <h4>⏱ Processing Time</h4>
+    <p>Account deletion requests are processed within <strong>7 business days</strong>. You will receive a confirmation email once your account has been deleted.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 <strong style="color: var(--white)">Kickstr</strong> &nbsp;·&nbsp; <a href="./index.html">Privacy Policy</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
